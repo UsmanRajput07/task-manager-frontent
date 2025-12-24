@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const axiosWrapper = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
@@ -9,10 +8,11 @@ const axiosWrapper = axios.create({
 });
 
 interface Auth {
-  accessToken: string;
-  refreshToken: string;
-  user: {
-    [key: string]: string;
+  data: {
+    token: string;
+    user: {
+      [key: string]: string;
+    };
   };
 }
 
@@ -27,8 +27,8 @@ axiosWrapper.interceptors.request.use(
       // parsed.auth is STILL a JSON string → need 2nd parse
       const auth: Auth = JSON.parse(parsed.auth);
 
-      if (auth?.accessToken) {
-        config.headers.Authorization = `Bearer ${auth.accessToken}`;
+      if (auth?.data?.token) {
+        config.headers.Authorization = `Bearer ${auth.data.token}`;
       }
     }
 
