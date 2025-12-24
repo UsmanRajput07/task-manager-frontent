@@ -27,13 +27,13 @@ import { useState } from "react";
 import { AlertDialogComp } from "./AlertDailogComp";
 import type { AppDispatch } from "@/app/store";
 import { logout } from "@/app/features/auth.slice";
+import type { User } from "@/Types/user";
 
 export function NavUser() {
   const disptach = useDispatch<AppDispatch>();
   const [open, setOpen] = useState(false);
   const user = useSelector(
-    (state: { auth: { auth: { user: { name: string; email: string } } } }) =>
-      state?.auth?.auth?.user
+    (state: { auth: { auth: { data: {user: User} } } }) => state?.auth?.auth?.data?.user
   );
   const { isMobile } = useSidebar();
 
