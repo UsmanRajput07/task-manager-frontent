@@ -4,10 +4,6 @@ const login = z.object({
   email: z.string(),
   password: z.string().min(6),
 });
-// const login = z.object({
-//   email: z.string(),
-//   password: z.string().min(6),
-// });
 
 const organizationSignup = z.object({
   organizationName: z.string(),
@@ -20,3 +16,4 @@ export const authSchema = {
   login,
   organizationSignup,
 };
+

@@ -4,3 +4,8 @@ export interface User {
   email: string;
   role: "admin" | "member";
 }
+
+export type getUser = User & {
+  createdAt: string;
+  updatedAt: string;
+};

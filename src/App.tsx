@@ -4,6 +4,7 @@ import SignupForm from "./pages/authLayout/SignupForm";
 import { LoginForm } from "./pages/authLayout/LoginForm";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import Dashboard from "./pages/dashboard/Dashboard";
+import UserDashboard from "./pages/users/UserDashboard";
 
 export default function App() {
   return (
@@ -15,6 +16,8 @@ export default function App() {
         </Route>
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
+          <Route path="users" element={<UserDashboard />} />
+
         </Route>
       </Routes>
     </BrowserRouter>
