@@ -4,6 +4,7 @@ import type { Members } from "@/Types/members";
 // import type { getUser } from "@/Types/user";
 import type { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
+import ProjectMember from "./ProjectMember";
 
 type UserColumnProps = {
   onDelete: (id: string) => void;
@@ -41,14 +42,25 @@ export function MemberColumn({
       accessorKey: "joinedAt",
       header: "Joined At",
       cell: ({ row }) => {
-        return <div>{format(new Date(row.original.joinedAt), "dd/MM/yyyy HH:mm")}</div>;
+        return (
+          <div>
+            {format(new Date(row.original.joinedAt), "dd/MM/yyyy HH:mm")}
+          </div>
+        );
       },
     },
     {
       header: "Action",
       cell: ({ row }) => (
         <div className="flex gap-4">
-        
+          <ProjectMember
+            projectData={row.original.user}
+            buttonTitle="Update"
+            title="Update Member"
+            description="update user member details"
+            projectId={row.original.project.id}
+            memberId={row.original.id}
+          />
           <Button
             size="sm"
             onClick={() => onDelete(row.original.id)}

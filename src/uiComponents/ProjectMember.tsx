@@ -22,7 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { FormInput } from "./FormFiled";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import projectS from "@/sevices/project";
 import { useEffect, useState } from "react";
 import type { Project } from "@/Types/project";
@@ -45,6 +45,8 @@ export default function ProjectMember({
   variant,
   size,
   projectData,
+  projectId,
+  memberId,
 }: {
   buttonTitle: string;
   title: string;
@@ -52,9 +54,11 @@ export default function ProjectMember({
   variant?: "default" | "destructive" | "outline" | "secondary";
   size?: "default" | "sm" | "lg" | "icon" | "icon-sm" | "icon-lg";
   projectData?: User;
+  projectId?: string;
+  memberId?: string;
 }) {
   const [open, setOpen] = useState(false);
-  //   const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof addMember>>({
     resolver: zodResolver(addMember),
     defaultValues: {
@@ -77,30 +81,45 @@ export default function ProjectMember({
     onSuccess: () => {
       toast.success(`Member added successfully`);
       form.reset();
-      // queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ["members"] });
       setOpen(false);
     },
     onError: () => {
       toast.error(`error while adding member`);
     },
   });
-  //   const update = useMutation({
-  //     mutationKey: ["update-project"],
-  //     mutationFn: async ({ id, data }: { id: string; data: Create }) => {
-  //       return projectS.updateProject(id, data);
-  //     },
-  //     onSuccess: () => {
-  //       toast.success(`project created successfully`);
-  //       form.reset();
-  //       queryClient.invalidateQueries({ queryKey: ["projects"] });
-  //       setOpen(false);
-  //     },
-  //     onError: () => {
-  //       toast.error(`error while creating project`);
-  //     },
-  //   });
+  const update = useMutation({
+    mutationKey: ["update-member"],
+    mutationFn: async ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: { role: "admin" | "member" | "manager" };
+    }) => {
+      return member.updateMember(id, data);
+    },
+    onSuccess: () => {
+      toast.success(`project member updated successfully`);
+      form.reset();
+      queryClient.invalidateQueries({ queryKey: ["members"] });
+      setOpen(false);
+    },
+    onError: () => {
+      toast.error(`error while updating project member`);
+    },
+  });
 
   const handleCreate = (data: z.infer<typeof addMember>) => {
+    if (memberId) {
+      update.mutate({
+        id: memberId,
+        data: {
+          role: data.role,
+        },
+      });
+      return;
+    }
     create.mutate({
       userId: data.userId || "",
       projectId: data.ProjectId,
@@ -114,6 +133,7 @@ export default function ProjectMember({
         userId: projectData.id,
         role: projectData.role,
         name: projectData.name,
+        ProjectId: projectId ?? "",
       });
     }
   }, [projectData, form]);

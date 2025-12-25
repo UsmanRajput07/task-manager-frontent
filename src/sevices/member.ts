@@ -16,4 +16,14 @@ const deleteMember = async (id: string) => {
   return res.data;
 };
 
-export default { addMember, fetchMembers, deleteMember };
+const updateMember = async (
+  id: string,
+  data: {
+    role: "admin" | "member" | "manager";
+  }
+) => {
+  const res = await axiosWrapper.patch(`/v1/projectMember/update/${id}`, data);
+  return res.data;
+};
+
+export default { addMember, fetchMembers, deleteMember, updateMember };

@@ -23,12 +23,14 @@ interface DataTableProps<TData, TValue> {
   downloadCSV?: () => void;
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  isLoading?: boolean;
 }
 
 export default function UserTable<TData, TValue>({
   downloadCSV,
   columns,
   data,
+  isLoading,
 }: DataTableProps<TData, TValue>) {
   const [globalFilter, setGlobalFilter] = useState("");
   const table = useReactTable({
@@ -80,26 +82,34 @@ export default function UserTable<TData, TValue>({
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
+          {isLoading ? (
+            <TableRow>
+              <TableCell
+                colSpan={columns.length}
+                className="h-24 text-center"
               >
+                Loading users...
+              </TableCell>
+            </TableRow>
+          ) : table.getRowModel().rows.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell
-                    key={cell.id}
-                    // className="truncate whitespace-nowrap overflow-hidden"
-                    // style={{ width: cell.column.getSize() }}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  <TableCell key={cell.id}>
+                    {flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext()
+                    )}
                   </TableCell>
                 ))}
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell
+                colSpan={columns.length}
+                className="h-24 text-center"
+              >
                 No results.
               </TableCell>
             </TableRow>

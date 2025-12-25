@@ -1,8 +1,7 @@
 import UserTable from "@/uiComponents/UserTable";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { use, useEffect, useState } from "react";
-import type { getUser } from "@/Types/user";
+import { useEffect, useState } from "react";
 import { AlertDialogComp } from "@/uiComponents/AlertDailogComp";
 import { MemberColumn } from "@/uiComponents/MemberColumn";
 import projectS from "@/sevices/project";
@@ -41,10 +40,6 @@ export default function MemberDashboard() {
       setOpenDelete(true);
     },
   });
-
-  // const handleClean = () => {
-  //   setSelectedUser(null);
-  // };
 
   const handleDelete = () => {
     if (deleteId) {
@@ -98,6 +93,7 @@ export default function MemberDashboard() {
         }}
         columns={columns}
         data={members.data?.data || []}
+        isLoading={members.isLoading}
       />
     </div>
   );

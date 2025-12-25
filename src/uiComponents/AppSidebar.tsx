@@ -1,10 +1,5 @@
 import * as React from "react";
-import {
-  IconBookFilled,
-  IconInnerShadowTop,
-
-} from "@tabler/icons-react";
-
+import { IconBookFilled, IconInnerShadowTop } from "@tabler/icons-react";
 
 import {
   Sidebar,
@@ -18,7 +13,7 @@ import {
 import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
 import { Link } from "react-router";
-import { User, UsersRound  } from "lucide-react";
+import { User, UsersRound } from "lucide-react";
 
 const data = {
   navMain: [
