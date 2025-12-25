@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -71,3 +72,7 @@ export default defineConfig([
   },
 ])
 ```
+=======
+# task-manager-frontent
+Task Manager – A modern task management application with organization-based projects, user roles, member management, and real-time UI updates using React, TanStack Query, and a scalable backend.
+>>>>>>> 4b47c7b61ef4a1c252071e7eb3da2e9fa66e1001
