@@ -21,8 +21,16 @@ const deleteTask = async (taskId: string) => {
   return res.data;
 };
 
-const getUserTasks = async ()=>{
+const getUserTasks = async () => {
   const res = await axiosWrapper.get("/v1/user/tasks");
   return res.data;
-}
-export default { create, fetchTasks, updateTask, deleteTask, getUserTasks };
+};
+
+const updateTaskStatus = async (
+  id: string,
+  data: { toStatus: "todo" | "in_progress" | "done" }
+) => {
+  const res = await axiosWrapper.post(`/v1/user/taskEvent/create/${id}`, data);
+  return res.data;
+};
+export default { create, fetchTasks, updateTask, deleteTask, getUserTasks, updateTaskStatus };

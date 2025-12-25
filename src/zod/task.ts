@@ -17,3 +17,7 @@ export const UpdateTask = z.object({
   projectId: z.string(),
   status: z.enum(["todo", "in_progress", "done"]),
 });
+
+export const UpdateSatus = z.object({
+  status: z.enum(["todo", "in_progress", "done"]),
+});

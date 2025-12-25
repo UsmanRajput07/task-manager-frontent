@@ -31,3 +31,10 @@ export type CreateTask = {
   assigneeId: string;
   projectId: string;
 };
+
+
+export type TaskData= {
+  id: string;
+  status: "todo" | "in_progress" | "done";
+  // other properties...
+}

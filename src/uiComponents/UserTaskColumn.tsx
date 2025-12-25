@@ -1,12 +1,12 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
-import type { UserTasks } from "@/Types/task";
+import type { TaskData, UserTasks } from "@/Types/task";
 import { Button } from "@/components/ui/button";
 
 // import ProjectMember from "./ProjectMember";
 
 type UserColumnProps = {
-  onEdit: (taskId: string) => void;
+  onEdit: (task: TaskData) => void;
   // onDelete: (id: string) => void;
 };
 
@@ -66,9 +66,11 @@ export function UserTaskColumn({
       maxSize: 120,
       size: 120,
       cell: ({ row }) => {
+        const date = row.original.createdAt;
         return (
           <div>
-            {format(new Date(row.original.createdAt), "dd/MM/yyyy HH:mm")}
+            {date &&
+              format(new Date(row.original.createdAt), "dd/MM/yyyy HH:mm")}
           </div>
         );
       },
@@ -80,14 +82,8 @@ export function UserTaskColumn({
       maxSize: 120,
       size: 120,
       cell: ({ row }) => {
-        return (
-          <div>
-            {format(
-              new Date(row.original.completedAt || new Date()),
-              "dd/MM/yyyy HH:mm"
-            )}
-          </div>
-        );
+        const date = row.original.completedAt;
+        return <div>{date && format(new Date(date), "dd/MM/yyyy HH:mm")}</div>;
       },
     },
     {
@@ -98,7 +94,14 @@ export function UserTaskColumn({
       cell: ({ row }) => {
         return (
           <div>
-            <Button onClick={() => onEdit(row.original.id)}>
+            <Button
+              onClick={() =>
+                onEdit({
+                  id: row.original.id,
+                  status: row.original.status,
+                })
+              }
+            >
               Update Status
             </Button>
           </div>

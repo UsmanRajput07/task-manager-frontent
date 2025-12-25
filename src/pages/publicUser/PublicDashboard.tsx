@@ -1,12 +1,28 @@
 import task from "@/sevices/task";
+import type { TaskData } from "@/Types/task";
+import TaskStatus from "@/uiComponents/TaskStatus";
 import TaskTable from "@/uiComponents/TaskTable";
 import { UserTaskColumn } from "@/uiComponents/UserTaskColumn";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Chrono } from "react-chrono";
+
+const items = [
+  {
+    title: "May 1940",
+    cardTitle: "Dunkirk",
+    cardDetailedText: "Allied evacuation from France",
+  },
+  {
+    title: "June 1944",
+    cardTitle: "D-Day",
+    cardDetailedText: "Normandy invasion begins",
+  },
+];
 
 export default function PublicDashboard() {
-  const [taskId, setTaskId] = useState<string | null>(null);
+  const [taskData, setTaskData] = useState<TaskData | null>(null);
   const [openEdit, setOpenEdit] = useState(false);
   const { data } = useQuery({
     queryKey: ["get-user-tasks"],
@@ -14,13 +30,20 @@ export default function PublicDashboard() {
   });
 
   const columns = UserTaskColumn({
-    onEdit: (taskId) => {
-      setTaskId(taskId);
+    onEdit: (task: TaskData) => {
+      if (task) {
+        setTaskData(task);
+      }
       setOpenEdit(true);
     },
   });
   return (
     <div className="py-2 px-4 flex flex-col gap-4">
+      <TaskStatus
+        open={openEdit}
+        setOpen={setOpenEdit}
+        taskData={taskData ?? ({} as TaskData)}
+      />
       <TaskTable
         data={data ?? []}
         columns={columns}
@@ -28,6 +51,16 @@ export default function PublicDashboard() {
           toast.error(`not implemented yet`);
         }}
       />
+      {/* <Chrono
+        items={items}
+        theme={{
+          primary: "#0079e6",
+          cardBgColor: "#ffffff",
+          cardTitleColor: "#1f2937",
+          timelineBgColor: "#f5f5f5",
+        }}
+        darkMode={{ enabled: true }}
+      /> */}
     </div>
   );
 }
