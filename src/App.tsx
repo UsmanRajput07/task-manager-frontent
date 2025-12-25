@@ -7,6 +7,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import UserDashboard from "./pages/users/UserDashboard";
 import MemberDashboard from "./pages/members/MemberDashboard";
 import TaskDashboard from "./pages/task/TaskDashboard";
+import LoginLayout from "./pages/authLayout/LoginLayout";
 
 export default function App() {
   return (
@@ -14,7 +15,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<AuthRoot />}>
           <Route index element={<SignupForm />} />
-          <Route path="login" element={<LoginForm />} />
+          <Route path="login" element={<LoginLayout />} />
         </Route>
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />

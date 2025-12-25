@@ -16,7 +16,7 @@ import { setAuth } from "@/app/features/auth.slice";
 import type { login } from "@/Types/auth";
 import { Loader2 } from "lucide-react";
 
-export function LoginForm() {
+export function UserForm() {
   const dispatch = useDispatch<AppDispatch>();
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ export function LoginForm() {
 
   const login = useMutation({
     mutationKey: ["login"],
-    mutationFn: (data: login) => auth.login(data),
+    mutationFn: (data: login) => auth.userLogin(data),
 
     onSuccess: (data) => {
       toast.success("login successful");

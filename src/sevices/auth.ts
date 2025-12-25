@@ -1,4 +1,4 @@
-import type { login, OrgSignup } from "@/Types/auth";
+import type { login as loginType, OrgSignup } from "@/Types/auth";
 import axiosWrapper from "./axiosWrapper";
 
 const adminSignup = async (data: OrgSignup) => {
@@ -8,15 +8,18 @@ const adminSignup = async (data: OrgSignup) => {
   );
   return response.data;
 };
-const login = async (data: login) => {
-  const response = await axiosWrapper.post(
-    "/v1/organization/adminlogin",
-    data
-  );
+const login = async (data: loginType) => {
+  const response = await axiosWrapper.post("/v1/organization/adminlogin", data);
+  return response.data;
+};
+
+const userLogin = async (data: loginType) => {
+  const response = await axiosWrapper.post("/v1/user/login", data);
   return response.data;
 };
 
 export default {
   adminSignup,
   login,
+  userLogin,
 };
