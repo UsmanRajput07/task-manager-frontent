@@ -87,7 +87,6 @@ export function TaskColumn({
     {
       header: "Action",
       cell: ({ row }) => {
-        console.log(row);
         return (
           <div className="flex gap-4">
             <TaskSheet

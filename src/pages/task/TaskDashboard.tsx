@@ -1,6 +1,6 @@
 import { TaskColumn } from "@/uiComponents/TaskColumn";
 import TaskSheet from "@/uiComponents/TaskSheet";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import project from "@/sevices/project";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
@@ -14,11 +14,18 @@ import {
 import type { Project } from "@/Types/project";
 import TaskTable from "@/uiComponents/TaskTable";
 import task from "@/sevices/task";
+import { AlertDialogComp } from "@/uiComponents/AlertDailogComp";
 
 export default function TaskDashboard() {
   const [selectedProject, setSelectedProject] = useState<string>("");
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [openDelete, setOpenDelete] = useState(false);
+  const queryClient = useQueryClient();
   const columns = TaskColumn({
-    onDelete: () => {},
+    onDelete: (taskId) => {
+      setDeleteId(taskId);
+      setOpenDelete(true);
+    },
   });
 
   const { data } = useQuery({
@@ -31,6 +38,25 @@ export default function TaskDashboard() {
     queryFn: () => task.fetchTasks(selectedProject),
     enabled: !!selectedProject,
   });
+
+  const deleteTask = useMutation({
+    mutationKey: ["delete-task"],
+    mutationFn: task.deleteTask,
+    onSuccess: () => {
+      toast.success(`task delete successfully`);
+      queryClient.invalidateQueries({ queryKey: ["tasks", selectedProject] });
+      setOpenDelete(false);
+    },
+    onError: () => {
+      toast.error("something went wrong");
+    },
+  });
+
+  const handleDelete = () => {
+    if (deleteId) {
+      deleteTask.mutate(deleteId);
+    }
+  };
 
   useEffect(() => {
     setSelectedProject(data?.data?.[0]?.id || "");
@@ -51,13 +77,13 @@ export default function TaskDashboard() {
             ))}
           </SelectContent>
         </Select>
-        {/* <AlertDialogComp
-        open={openDelete}
-        setOpen={setOpenDelete}
-        title="Are you sure you want to revoke project access?"
-        description="This action cannot be undone. This will revoke the user's access to the project."
-        fn={handleDelete}
-      /> */}
+        <AlertDialogComp
+          open={openDelete}
+          setOpen={setOpenDelete}
+          title="Are you sure you want to revoke project access?"
+          description="This action cannot be undone. This will revoke the user's access to the project."
+          fn={handleDelete}
+        />
         <TaskSheet
           buttonTitle="Craete task"
           title="Create a new task"

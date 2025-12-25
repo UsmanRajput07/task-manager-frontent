@@ -15,4 +15,9 @@ const updateTask = async (id: string, data: CreateTask) => {
   const res = await axiosWrapper.patch(`/v1/task/update/${id}`, data);
   return res.data;
 };
-export default { create, fetchTasks, updateTask };
+
+const deleteTask = async (taskId: string) => {
+  const res = await axiosWrapper.delete(`/v1/task/delete/${taskId}`);
+  return res.data;
+};
+export default { create, fetchTasks, updateTask, deleteTask };
