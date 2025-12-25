@@ -13,7 +13,7 @@ import {
 import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
 import { Link } from "react-router";
-import { User, UsersRound } from "lucide-react";
+import { User, UsersRound, ClipboardList } from "lucide-react";
 
 const data = {
   navMain: [
@@ -31,6 +31,11 @@ const data = {
       title: "Members",
       url: "/dashboard/members",
       icon: UsersRound,
+    },
+    {
+      title: "Tasks",
+      url: "/dashboard/tasks",
+      icon: ClipboardList,
     },
   ],
 };

@@ -18,7 +18,8 @@ export default function Dashboard() {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4  max-h-screen overflow-y-scroll ">
+      <h2>Projects</h2>
+      <div className="grid grid-cols-2 gap-4  max-h-screen overflow-y-scroll">
         <ProjectCard projects={data?.data} isLoading={isLoading} />
       </div>
     </div>

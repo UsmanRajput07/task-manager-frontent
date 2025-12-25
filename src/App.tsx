@@ -6,6 +6,7 @@ import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import Dashboard from "./pages/dashboard/Dashboard";
 import UserDashboard from "./pages/users/UserDashboard";
 import MemberDashboard from "./pages/members/MemberDashboard";
+import TaskDashboard from "./pages/task/TaskDashboard";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route index element={<Dashboard />} />
           <Route path="users" element={<UserDashboard />} />
           <Route path="members" element={<MemberDashboard />} />
+          <Route path="tasks" element={<TaskDashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -21,6 +21,7 @@ import projectS from "@/sevices/project";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import type { Create, Project } from "@/Types/project";
+import { Loader2 } from "lucide-react";
 
 export default function ProjectSheet({
   buttonTitle,
@@ -67,20 +68,14 @@ export default function ProjectSheet({
     mutationFn: async ({ id, data }: { id: string; data: Create }) => {
       return projectS.updateProject(id, data);
     },
-
-    /*************  ✨ Windsurf Command ⭐  *************/
-    /**
- * Called when the mutation is successful.
- * Shows a success toast, resets the form, invalidates the projects query, and closes the sheet.
-/*******  125d33da-299b-48ee-a4b0-830f8c8d0890  *******/
     onSuccess: () => {
-      toast.success(`project created successfully`);
+      toast.success(`project updated successfully`);
       form.reset();
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       setOpen(false);
     },
     onError: () => {
-      toast.error(`error while creating project`);
+      toast.error(`error while updating project`);
     },
   });
 
@@ -149,7 +144,11 @@ export default function ProjectSheet({
               required={true}
             />
             <SheetFooter className="flex flex-col gap-4">
-              <Button type="submit">Save changes</Button>
+              <Button type="submit">
+                {buttonTitle}
+                {create.isPending && <Loader2 className="animate-spin ml-2" />}
+                {update.isPending && <Loader2 className="animate-spin ml-2" />}
+              </Button>
               <SheetClose asChild>
                 <Button variant="outline">Close</Button>
               </SheetClose>
