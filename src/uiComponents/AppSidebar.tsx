@@ -18,7 +18,7 @@ import {
 import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
 import { Link } from "react-router";
-import { User } from "lucide-react";
+import { User, UsersRound  } from "lucide-react";
 
 const data = {
   navMain: [
@@ -31,6 +31,11 @@ const data = {
       title: "Users",
       url: "/dashboard/users",
       icon: User,
+    },
+    {
+      title: "Members",
+      url: "/dashboard/members",
+      icon: UsersRound,
     },
   ],
 };

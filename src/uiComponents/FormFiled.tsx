@@ -17,6 +17,7 @@ interface FormInputProps<T extends FieldValues> {
   type?: string;
   description?: string;
   required?: boolean;
+  readOnly?:boolean
 }
 
 export const FormInput = <T extends FieldValues>({
@@ -27,6 +28,7 @@ export const FormInput = <T extends FieldValues>({
   type = "text",
   description,
   required = false,
+  readOnly=false
 }: FormInputProps<T>) => {
   return (
     <FormField
@@ -44,6 +46,7 @@ export const FormInput = <T extends FieldValues>({
               type={type}
               placeholder={placeholder}
               required={required}
+              readOnly={readOnly}
               {...field}
               // ✅ Handle number conversion safely
               onChange={(e) => {

@@ -7,7 +7,6 @@ import { toast } from "sonner";
 import UserDailog from "./UserDailog";
 import { useState } from "react";
 import type { getUser } from "@/Types/user";
-import { AlertDialog } from "@/components/ui/alert-dialog";
 import { AlertDialogComp } from "@/uiComponents/AlertDailogComp";
 
 export default function UserDashboard() {

@@ -106,7 +106,7 @@ export default function ProjectSheet({
   }, [projectData, form]);
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger open={open}>
+      <SheetTrigger>
         <Button variant={variant} size={size}>
           {buttonTitle}
         </Button>

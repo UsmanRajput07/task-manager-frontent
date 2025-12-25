@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import type { getUser } from "@/Types/user";
 import type { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
+import ProjectMember from "./ProjectMember";
+// import ProjectMember from "./ProjectMember";
 
 type UserColumnProps = {
   onEdit: (user: getUser) => void;
@@ -53,6 +55,17 @@ export function UserColumn({
             Delete
           </Button>
         </div>
+      ),
+    },
+    {
+      header: "Add Member",
+      cell: ({ row }) => (
+        <ProjectMember
+          projectData={row.original}
+          buttonTitle="Add Member"
+          description="Make the user member of project to assign task"
+          title="Add Member to Project"
+        />
       ),
     },
   ];
