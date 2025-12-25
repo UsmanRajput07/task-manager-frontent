@@ -36,7 +36,7 @@ export function UserForm() {
       toast.success("login successful");
       loginForm.reset();
       dispatch(setAuth(data));
-      navigate("/dashboard");
+      navigate("/memberDashboard");
     },
     onError: () => {
       toast.error(`failed to verify otp`);

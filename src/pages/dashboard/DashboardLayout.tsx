@@ -4,22 +4,22 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/uiComponents/AppSidebar";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Outlet, useNavigate } from "react-router";
+// import { useEffect } from "react";
+// import { useSelector } from "react-redux";
+import { Outlet } from "react-router";
 import { Toaster } from "sonner";
 
 export default function DashboardLayout() {
-  const navigate = useNavigate();
-  const authToken = useSelector(
-    (state: { auth: { auth: {data: {token: string}} } }) =>
-      state.auth?.auth?.data?.token
-  );
-  useEffect(()=>{
-    if(!authToken){
-      navigate("/", { replace: true });
-    }
-  },[authToken])
+  // const navigate = useNavigate();
+  // const authToken = useSelector(
+  //   (state: { auth: { auth: {data: {token: string}} } }) =>
+  //     state.auth?.auth?.data?.token
+  // );
+  // useEffect(()=>{
+  //   if(!authToken){
+  //     navigate("/", { replace: true });
+  //   }
+  // },[authToken])
   return (
     <SidebarProvider
       style={

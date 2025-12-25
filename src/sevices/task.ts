@@ -20,4 +20,9 @@ const deleteTask = async (taskId: string) => {
   const res = await axiosWrapper.delete(`/v1/task/delete/${taskId}`);
   return res.data;
 };
-export default { create, fetchTasks, updateTask, deleteTask };
+
+const getUserTasks = async ()=>{
+  const res = await axiosWrapper.get("/v1/user/tasks");
+  return res.data;
+}
+export default { create, fetchTasks, updateTask, deleteTask, getUserTasks };

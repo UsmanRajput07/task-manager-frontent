@@ -16,6 +16,12 @@ export type Task = {
   tags: [];
 };
 
+export type UserTasks = Omit<Task, "assignee"> & {
+  project: {
+    id: string;
+    name: string;
+  };
+};
 
 export type CreateTask = {
   title: string;

@@ -14,7 +14,8 @@ import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
 import { Link } from "react-router";
 import { User, UsersRound, ClipboardList } from "lucide-react";
-
+import { useSelector } from "react-redux";
+import type { User as UserType } from "@/Types/user";
 const data = {
   navMain: [
     {
@@ -38,9 +39,21 @@ const data = {
       icon: ClipboardList,
     },
   ],
+
+  userMain: [
+    {
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: IconBookFilled,
+    },
+  ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const user = useSelector(
+    (state: { auth: { auth: { data: { user: UserType } } } }) =>
+      state.auth?.auth?.data?.user
+  );
   return (
     <Sidebar collapsible="icon" {...props} variant="floating">
       <SidebarHeader>
@@ -59,7 +72,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        {user?.role === "admin" ? (
+          <NavMain items={data.navMain} />
+        ) : (
+          <NavMain items={data.userMain} />
+        )}
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

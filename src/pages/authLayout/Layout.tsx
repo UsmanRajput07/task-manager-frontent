@@ -1,3 +1,4 @@
+import type { User } from "@/Types/user";
 import { FloatingPaths } from "@/uiComponents/FloatingPaths";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -6,15 +7,18 @@ import { Toaster } from "sonner";
 
 export default function Layout() {
   const navigate = useNavigate();
-  const authToken = useSelector(
-    (state: { auth: { auth: { data: { token: string } } } }) =>
-      state.auth?.auth?.data?.token
+  const user = useSelector(
+    (state: { auth: { auth: { data: { user: User } } } }) =>
+      state.auth?.auth?.data?.user
   );
   useEffect(() => {
-    if (authToken) {
+    if (user?.role === "admin") {
       navigate("/dashboard", { replace: true });
     }
-  }, [authToken]);
+    if (user?.role === "member") {
+      navigate("/memberDashboard", { replace: true });
+    }
+  }, [user]);
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-2 md:p-2 py-8">
