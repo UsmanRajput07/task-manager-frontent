@@ -6,21 +6,9 @@ import { UserTaskColumn } from "@/uiComponents/UserTaskColumn";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Chrono } from "react-chrono";
 import TaskSummary from "@/uiComponents/TaskSummary";
 
-const items = [
-  {
-    title: "May 1940",
-    cardTitle: "Dunkirk",
-    cardDetailedText: "Allied evacuation from France",
-  },
-  {
-    title: "June 1944",
-    cardTitle: "D-Day",
-    cardDetailedText: "Normandy invasion begins",
-  },
-];
+
 
 export default function PublicDashboard() {
   const [taskData, setTaskData] = useState<TaskData | null>(null);

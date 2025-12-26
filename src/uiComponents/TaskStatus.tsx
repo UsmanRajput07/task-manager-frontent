@@ -70,7 +70,9 @@ export default function TaskStatus({
     onSuccess: () => {
       toast.success(`task updated successfully`);
       form.reset();
-      queryClient.invalidateQueries({ queryKey: ["get-user-tasks"] });
+      queryClient.invalidateQueries({
+        queryKey: ["get-user-tasks",],
+      });
       setOpen(false);
     },
     onError: () => {
@@ -125,7 +127,9 @@ export default function TaskStatus({
               </DialogClose>
               <Button type="submit">
                 Save changes
-                {updateStatus?.isPending &&  <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {updateStatus?.isPending && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
               </Button>
             </DialogFooter>
           </form>
