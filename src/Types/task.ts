@@ -32,9 +32,24 @@ export type CreateTask = {
   projectId: string;
 };
 
-
-export type TaskData= {
+export type TaskData = {
   id: string;
   status: "todo" | "in_progress" | "done";
   // other properties...
-}
+};
+
+export type TaskSummary = {
+  id: string;
+  organizationId: string;
+  taskId: string;
+  userId: string;
+  type: string;
+  fromStatus: string;
+  toStatus: string;
+  timeSpentMinutes: string | null;
+  createdAt: string;
+  user: {
+    id: string;
+    name: string;
+  };
+};

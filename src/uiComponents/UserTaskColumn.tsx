@@ -8,10 +8,12 @@ import { Button } from "@/components/ui/button";
 type UserColumnProps = {
   onEdit: (task: TaskData) => void;
   // onDelete: (id: string) => void;
+  onSummary: (taskId: string) => void;
 };
 
 export function UserTaskColumn({
   onEdit,
+  onSummary,
 }: UserColumnProps): ColumnDef<UserTasks>[] {
   return [
     {
@@ -104,6 +106,19 @@ export function UserTaskColumn({
             >
               Update Status
             </Button>
+          </div>
+        );
+      },
+    },
+    {
+      header: "task summary",
+      minSize: 80,
+      maxSize: 80,
+      size: 80,
+      cell: ({ row }) => {
+        return (
+          <div>
+            <Button onClick={() => onSummary(row.original.id)}>Summary</Button>
           </div>
         );
       },

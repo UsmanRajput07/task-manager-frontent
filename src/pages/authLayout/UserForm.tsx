@@ -39,7 +39,7 @@ export function UserForm() {
       navigate("/memberDashboard");
     },
     onError: () => {
-      toast.error(`failed to verify otp`);
+      toast.error(`failed to login`);
     },
   });
 

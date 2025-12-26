@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Chrono } from "react-chrono";
+import TaskSummary from "@/uiComponents/TaskSummary";
 
 const items = [
   {
@@ -23,6 +24,8 @@ const items = [
 
 export default function PublicDashboard() {
   const [taskData, setTaskData] = useState<TaskData | null>(null);
+  const [taskId, setTaskId] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const { data } = useQuery({
     queryKey: ["get-user-tasks"],
@@ -36,9 +39,14 @@ export default function PublicDashboard() {
       }
       setOpenEdit(true);
     },
+    onSummary: (taskId) => {
+      setTaskId(taskId);
+      setOpen(true);
+    },
   });
   return (
     <div className="py-2 px-4 flex flex-col gap-4">
+      <TaskSummary open={open} setOpen={setOpen} taskId={taskId ?? ""}/>
       <TaskStatus
         open={openEdit}
         setOpen={setOpenEdit}

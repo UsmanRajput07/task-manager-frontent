@@ -33,4 +33,16 @@ const updateTaskStatus = async (
   const res = await axiosWrapper.post(`/v1/user/taskEvent/create/${id}`, data);
   return res.data;
 };
-export default { create, fetchTasks, updateTask, deleteTask, getUserTasks, updateTaskStatus };
+const fetchTaskSummary = async (id: string) => {
+  const res = await axiosWrapper.get(`/v1/user/taskEvent/gets/${id}`);
+  return res.data;
+};
+export default {
+  create,
+  fetchTasks,
+  updateTask,
+  deleteTask,
+  getUserTasks,
+  updateTaskStatus,
+  fetchTaskSummary,
+};
